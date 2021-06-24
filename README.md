@@ -2,6 +2,9 @@
 
 ## Overview
 
+## Team
+Cheryl McIntyre - @cmc-belfastmet
+
 This is a simple Visual Studio API Project for the Belfast Met Microsoft Academy.
 
 * The project was created using [this article](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-5.0&tabs=visual-studio). 
