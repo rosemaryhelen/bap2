@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\BapApi"
+    "\\BapApi",
+    "\\BapApi\\Models"
   ],
-  "SelectedNode": "\\publish",
+  "SelectedNode": "\\BapApi\\Models\\StoreContext.cs",
   "PreviewInSolutionExplorer": false
 }
