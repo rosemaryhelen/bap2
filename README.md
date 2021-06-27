@@ -6,6 +6,7 @@
 Cheryl McIntyre - @cmc-belfastmet
 Adam Black - @50032540
 Rosemary Ogden - @rosemaryhelen
+Sarah Hamilton - @slhamilton91
 
 This is a simple Visual Studio API Project for the Belfast Met Microsoft Academy.
 
