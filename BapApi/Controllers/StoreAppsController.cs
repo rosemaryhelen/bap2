@@ -73,7 +73,12 @@ namespace BapApi.Controllers
             new StoreAppDTO
             {
                 Id = storeApp.Id,
-                Name = storeApp.Name
+                Name = storeApp.Name,
+                Rating = storeApp.Rating,
+                People = storeApp.People,
+                Category = storeApp.Category,
+                Date = storeApp.Date,
+                Price = storeApp.Price
             };
     }
 
