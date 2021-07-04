@@ -31,9 +31,25 @@ namespace BapApi.Controllers
             return await _context.StoreApps.Select(x => StoreAppToDTO(x)).ToListAsync();
         }
 
-        // GET: api/StoreApps/1
-        // Get a single row from the database by Id
-        [HttpGet("{id}")]
+        [HttpGet("{searchString}")]
+        public async Task<ActionResult<StoreAppDTO>> GetSearchResults(string searchString)
+        {
+            var lowerCaseSearchString = searchString.ToLower().Trim();
+
+            var searchResults = await _context.StoreApps.Where(a => a.Name.ToLower().Contains(lowerCaseSearchString)).ToListAsync();
+
+            if (searchResults == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(searchResults);
+        }
+
+        /*
+            // GET: api/StoreApps/1
+            // Get a single row from the database by Id
+            [HttpGet("{id}")]
         public async Task<ActionResult<StoreAppDTO>> GetStoreApp(int id)
         {
             var storeApp = await _context.StoreApps.FindAsync(id);
@@ -45,6 +61,7 @@ namespace BapApi.Controllers
 
             return StoreAppToDTO(storeApp);
         }
+        */
 
         // GET: api/StoreApps/FirstTen
         // Get the first ten results from the database aftering ordering the data by Id
