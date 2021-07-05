@@ -31,11 +31,14 @@ namespace BapApi.Controllers
             return await _context.StoreApps.Select(x => StoreAppToDTO(x)).ToListAsync();
         }
 
-        [HttpGet("{searchString}")]
-        public async Task<ActionResult<StoreAppDTO>> GetSearchResults(string searchString)
+        // GET: api/StoreApps/{searchString}
+        // Get data from DB where the name contains {search}
+        [HttpGet("{search}")]
+        public async Task<ActionResult<StoreAppDTO>> GetSearchResults(string search)
         {
-            var lowerCaseSearchString = searchString.ToLower().Trim();
-
+            //eliminate case by placing all in lower
+            var lowerCaseSearchString = search.ToLower();
+            //Query against the DB - Where input contains lowerCaseSearchString in the Name add to list
             var searchResults = await _context.StoreApps.Where(a => a.Name.ToLower().Contains(lowerCaseSearchString)).ToListAsync();
 
             if (searchResults == null)
@@ -46,6 +49,23 @@ namespace BapApi.Controllers
             return Ok(searchResults);
         }
 
+        // GET: api/StoreApps/category/{category}
+        // Get data from DB where the Category contains {category}
+        [HttpGet("category/{category}")]
+                public async Task<ActionResult<StoreAppDTO>> GetCategory(string category)
+                {
+                    //eliminate case by placing all in lower
+                    var lowerCaseCategory = category.ToLower();
+                    //Query against the DB - Where input contains lowerCaseCategory in the Category, add to list
+                    var searchResults = await _context.StoreApps.Where(a => a.Category.ToLower().Contains(lowerCaseCategory)).ToListAsync();
+
+                    if (searchResults == null)
+                    {
+                        return NotFound();
+                    }
+
+                    return Ok(searchResults);
+                }
 
         // GET: api/StoreApps/1
         // Get a single row from the database by Id
@@ -62,21 +82,8 @@ namespace BapApi.Controllers
             return StoreAppToDTO(storeApp);
         }
 
-        [HttpGet("category/{category}")]
-        public async Task<ActionResult<StoreAppDTO>> GetCategory(string category)
-        {
-            var lowerCaseCategory = category.ToLower().Trim();
-
-            var searchResults = await _context.StoreApps.Where(a => a.Category.ToLower().Contains(lowerCaseCategory)).ToListAsync();
-
-            if (searchResults == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(searchResults);
-        }
-
+        // GET: api/StoreApps/rating/{rating}
+        // Return the data for selected rating and above from DB e.g if 3.0 selected return apps of 3.0, 3.5, 4.0, 4.5 and 5.0
         [HttpGet("rating/{rating}")]
         public async Task<ActionResult<StoreAppDTO>> GetRating(double rating)
         {
