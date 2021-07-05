@@ -46,10 +46,10 @@ namespace BapApi.Controllers
             return Ok(searchResults);
         }
 
-        /*
-            // GET: api/StoreApps/1
-            // Get a single row from the database by Id
-            [HttpGet("{id}")]
+
+        // GET: api/StoreApps/1
+        // Get a single row from the database by Id
+        [HttpGet("id/{id}")]
         public async Task<ActionResult<StoreAppDTO>> GetStoreApp(int id)
         {
             var storeApp = await _context.StoreApps.FindAsync(id);
@@ -61,7 +61,48 @@ namespace BapApi.Controllers
 
             return StoreAppToDTO(storeApp);
         }
-        */
+
+        [HttpGet("category/{category}")]
+        public async Task<ActionResult<StoreAppDTO>> GetCategory(string category)
+        {
+            var lowerCaseCategory = category.ToLower().Trim();
+
+            var searchResults = await _context.StoreApps.Where(a => a.Category.ToLower().Contains(lowerCaseCategory)).ToListAsync();
+
+            if (searchResults == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(searchResults);
+        }
+
+        [HttpGet("rating/{rating}")]
+        public async Task<ActionResult<StoreAppDTO>> GetRating(double rating)
+        {
+            var searchResults = await _context.StoreApps.Where(a => a.Rating >= rating).ToListAsync();
+
+            if (searchResults == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(searchResults);
+        }
+
+        [HttpGet("people/{people}")]
+        public async Task<ActionResult<StoreAppDTO>> GetPeople(int people)
+        {
+            var searchResults = await _context.StoreApps.Where(a => a.People >= people).ToListAsync();
+
+            if (searchResults == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(searchResults);
+        }
+
 
         // GET: api/StoreApps/FirstTen
         // Get the first ten results from the database aftering ordering the data by Id
